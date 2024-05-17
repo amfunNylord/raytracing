@@ -136,6 +136,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AboutDlg.h" />
+    <ClInclude Include="ILightSource.h" />
+    <ClInclude Include="ILightSource_fwd.h" />
     <ClInclude Include="libgl\CCheckerShader.h" />
     <ClInclude Include="libgl\CFrameBuffer.h" />
     <ClInclude Include="libgl\CGeometryObjectImpl.h" />
@@ -163,9 +165,14 @@
     <ClInclude Include="libgl\IGeometryObject_fwd.h" />
     <ClInclude Include="libgl\IShader.h" />
     <ClInclude Include="libgl\VectorMath.h" />
+    <ClInclude Include="CLightSourceImpl.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="COmniLightSource.h" />
     <ClInclude Include="RaytraceView.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="CSimpleDiffuseShader.h" />
+    <ClInclude Include="CSimpleMaterial.h" />
+    <ClInclude Include="CSphere.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -180,7 +187,10 @@
     <ClCompile Include="libgl\CViewPort.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="COmniLightSource.cpp" />
     <ClCompile Include="RaytraceView.cpp" />
+    <ClCompile Include="CSimpleDiffuseShader.cpp" />
+    <ClCompile Include="CSphere.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>

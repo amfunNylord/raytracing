@@ -16,7 +16,6 @@ class CRaytraceView : public CWindowImpl<CRaytraceView>
 	{
 		FRAMEBUFFER_UPDATE_TIMER = 1
 	};
-
 public:
 	CRaytraceView();
 	~CRaytraceView();
@@ -44,7 +43,6 @@ private:
 	// Отрисовка содержимого буфера кадра на контексте устройства
 	void DrawFrameBuffer(CDC& dc, int x, int y);
 	bool UpdateFrameBuffer();
-
 private:
 	CRenderContext m_context;
 	CRenderer m_renderer;

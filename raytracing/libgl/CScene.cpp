@@ -21,6 +21,32 @@ void CScene::SetBackdropColor(CVector4f const& backdropColor)
 }
 
 /*
+Добавляем источник света к сцене
+*/
+void CScene::AddLightSource(ILightSourcePtr pLightSource)
+{
+	m_lightSources.push_back(pLightSource);
+}
+
+/*
+Возврат количества источников света в сцене
+*/
+size_t CScene::GetLightsCount() const
+{
+	return m_lightSources.size();
+}
+
+/*
+Возвращаем ссылку на источник света с указанным индексом
+*/
+ILightSource const& CScene::GetLight(size_t index) const
+{
+	assert(index < m_lightSources.size());
+
+	return *m_lightSources[index];
+}
+
+/*
 Добавляем в сцену объект
 */
 void CScene::AddObject(CSceneObjectPtr pSceneObject)

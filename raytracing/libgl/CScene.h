@@ -1,8 +1,8 @@
 ﻿#pragma once
 
+#include "../ILightSource_fwd.h"
 #include "CVector4.h"
 #include "CSceneObject_fwd.h"
-#include <vector>
 
 class CRay;
 class CIntersection;
@@ -25,6 +25,21 @@ public:
 	void AddObject(CSceneObjectPtr pSceneObject);
 
 	/*
+	Добавляем источник света в сцену
+	*/
+	void AddLightSource(ILightSourcePtr pLightSource);
+
+	/*
+	Возвращает количество источников света в сцене
+	*/
+	size_t GetLightsCount() const;
+
+	/*
+	Доступ к источнику света с указанным индексом
+	*/
+	ILightSource const& GetLight(size_t index) const;
+
+	/*
 	Возвращает цвет луча, столкнувшегося с объектами сцены
 	*/
 	CVector4f Shade(CRay const& ray)const;
@@ -37,6 +52,9 @@ private:
 	// Коллекция объектов сцены
 	typedef std::vector<CSceneObjectPtr> CSceneObjects;
 	CSceneObjects m_objects;
+
+	typedef std::vector<ILightSourcePtr> LightSources;
+	LightSources m_lightSources;
 
 	// Цвет заднего фона сцены
 	CVector4f m_backdropColor;

@@ -1,9 +1,5 @@
 ﻿#pragma once
 
-#include <cassert>
-#include <cstdint>
-#include <vector>
-
 /*
 	Класс CFrameBuffer, представляющий из себя 32-битный буфер кадра
 	фиксированного размера
