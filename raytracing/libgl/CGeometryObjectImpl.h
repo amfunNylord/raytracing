@@ -39,6 +39,8 @@ public:
 		m_normalMatrix.SetColumn(1, m_invTransform.GetRow(1));
 		m_normalMatrix.SetColumn(2, m_invTransform.GetRow(2));
 		
+		// Уведомляем наследников об изменении матрицы преобразования
+		OnUpdateTransform();
 	}
 
 	/*
