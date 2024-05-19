@@ -54,6 +54,16 @@ CVector4f CSimpleDiffuseShader::Shade(CShadeContext const & shadeContext)const
 
 		// К результирующему цвету прибавляется вычисленный диффузный цвет
 		shadedColor += diffuseColor;
+
+		CVector4f ambientColor = light.GetAmbientIntensity() * m_material.GetAmbientColor();
+		shadedColor += ambientColor;
+
+		// вектор отраженного света R
+		CVector3d reflectedLightVector = 2 * Dot(n, Normalize(lightDirection)) * n - lightDirection;
+		CVector4f specularColor = m_material.GetSpecularColor() * light.GetSpecularIntensity() * pow(Max(0.0, Dot(reflectedLightVector, lightDirection)), m_material.GetShiness()); // мб здесь траблы
+
+		shadedColor += specularColor;
+
 	}	// Проделываем данные действия для других источников света
 
 	// Возвращаем результирующий цвет точки

@@ -36,4 +36,10 @@ public:
 	virtual CVector3d GetDirectionFromPoint(CVector3d const& point)const = 0;
 
 	virtual ~ILightSource(void){}
+
+	virtual void SetAmbientIntensity(CVector4f const& ambientIntensity) = 0;
+	virtual CVector4f const& GetAmbientIntensity() const = 0;
+
+	virtual void SetSpecularIntensity(CVector4f const& specularIntesity) = 0;
+	virtual CVector4f const& GetSpecularIntensity() const = 0;
 };

@@ -158,9 +158,6 @@
     <ClInclude Include="libgl\CVector4.h" />
     <ClInclude Include="libgl\CVector_fwd.h" />
     <ClInclude Include="libgl\CViewPort.h" />
-    <ClInclude Include="libgl\IApplication.h" />
-    <ClInclude Include="libgl\IApplicationListener.h" />
-    <ClInclude Include="libgl\IEventDispatcher.h" />
     <ClInclude Include="libgl\IGeometryObject.h" />
     <ClInclude Include="libgl\IGeometryObject_fwd.h" />
     <ClInclude Include="libgl\IShader.h" />

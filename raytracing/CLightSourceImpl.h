@@ -42,6 +42,26 @@ public:
 		return m_diffuseIntensity;
 	}
 
+	virtual void SetAmbientIntensity(CVector4f const& ambientIntensity)
+	{
+		m_ambientIntensity = ambientIntensity;
+	}
+
+	virtual CVector4f const& GetAmbientIntensity() const
+	{
+		return m_ambientIntensity;
+	}
+
+	virtual void SetSpecularIntensity(CVector4f const& specularIntesity)
+	{
+		m_specularIntesity = specularIntesity;
+	}
+
+	virtual CVector4f const& GetSpecularIntensity() const
+	{
+		return m_specularIntesity;
+	}
+
 protected:
 	CLightSourceImpl(CMatrix4d const& transform = CMatrix4d())
 		:m_transform(transform)
@@ -49,6 +69,8 @@ protected:
 	}
 
 private:
+	CVector4f m_specularIntesity;
+	CVector4f m_ambientIntensity;
 	CVector4f m_diffuseIntensity;
 	CMatrix4d m_transform;
 

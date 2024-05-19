@@ -50,7 +50,10 @@ CRaytraceView::CRaytraceView()
 		Материал сферы 1
 		*/
 		CSimpleMaterial material1;
-		material1.SetDiffuseColor(CVector4f(1, 1, 0, 1));
+		material1.SetDiffuseColor(CVector4f(0.4f, 0.4f, 0.4f, 1.0f));
+		material1.SetAmbientColor(CVector4f(0.25f, 0.25f, 0.25f, 1.0f));
+		material1.SetSpecularColor(CVector4f(0.77f, 0.77f, 0.77f, 1.0f));
+		material1.SetShiness(76);
 
 		// Шейдер сферы 1
 		auto sphere1Shader = std::make_shared<CSimpleDiffuseShader>();
@@ -58,33 +61,12 @@ CRaytraceView::CRaytraceView()
 		m_scene.AddObject(std::make_shared<CSceneObject>(std::move(sphere1), std::move(sphere1Shader)));
 	}
 
-	// Создаем и добавляем в сцену сферу, имеющую заданный материал
-	{
-		/*
-		Матрица трансформации сферы 2
-		*/
-		CMatrix4d sphereTransform;
-		sphereTransform.Translate(0, -0.5, -3);
-		sphereTransform.Scale(1, 0.4, 1);
-		auto sphere2 = std::make_shared<CSphere>(0.5);
-		sphere2->SetTransform(sphereTransform);
-
-		/*
-		Материал сферы 2
-		*/
-		CSimpleMaterial material2;
-		material2.SetDiffuseColor(CVector4f(0.3f, 0.5f, 0.4f, 1));
-
-		// Шейдер сферы 2
-		auto sphere2Shader = std::make_shared<CSimpleDiffuseShader>();
-		sphere2Shader->SetMaterial(material2);
-		m_scene.AddObject(std::make_shared<CSceneObject>(std::move(sphere2), std::move(sphere2Shader)));
-	}
-
 	// Создаем и добавляем в сцену точечный источник света
 	{
 		auto light = std::make_shared<COmniLightSource>(CVector3d(-4.0, 4.0, 2.0));
-		light->SetDiffuseIntensity(CVector4f(1, 1, 1, 1));
+		light->SetDiffuseIntensity(CVector4f(0.8f, 0.8f, 0.8f, 1));
+		light->SetAmbientIntensity(CVector4f(0.1f, 0.1f, 0.1f, 1.0f));
+		light->SetSpecularIntensity(CVector4f(1.0f, 1.0f, 1.0f, 1.0f));
 		m_scene.AddLightSource(std::move(light));
 	}
 

@@ -24,7 +24,7 @@ BOOL CMainFrame::OnIdle()
 
 LRESULT CMainFrame::OnCreate(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 {
-	SetWindowPos(NULL, 0, 0, 800, 600, SWP_NOMOVE | SWP_NOZORDER);
+	SetWindowPos(NULL, 0, 0, 820, 600, SWP_NOMOVE | SWP_NOZORDER);
 	m_hWndClient = m_view.Create(m_hWnd, rcDefault, NULL, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, WS_EX_CLIENTEDGE);
 
 	// register object for message filtering and idle updates
