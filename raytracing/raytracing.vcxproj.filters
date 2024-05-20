@@ -22,9 +22,6 @@
     <Filter Include="libgl\Source Files">
       <UniqueIdentifier>{9ba9b421-7151-4607-9186-704563b64e8a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AdvancedLight">
-      <UniqueIdentifier>{214202fd-44cb-40d9-9c67-e05f234b86fd}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AboutDlg.h">

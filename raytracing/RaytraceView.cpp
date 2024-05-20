@@ -42,18 +42,18 @@ CRaytraceView::CRaytraceView()
 		Матрица трансформации сферы 1
 		*/
 		CMatrix4d sphereTransform;
-		sphereTransform.Translate(2, 0, -5);
-		auto sphere1 = std::make_shared<CSphere>(1.5); // Создаем сферу радиуса 1.5
+		sphereTransform.Translate(0, 0, -3);
+		auto sphere1 = std::make_shared<CSphere>(0.5); // Создаем сферу радиуса 0.5
 		sphere1->SetTransform(sphereTransform);
 
 		/*
 		Материал сферы 1
 		*/
 		CSimpleMaterial material1;
-		material1.SetDiffuseColor(CVector4f(0.4f, 0.4f, 0.4f, 1.0f));
-		material1.SetAmbientColor(CVector4f(0.25f, 0.25f, 0.25f, 1.0f));
-		material1.SetSpecularColor(CVector4f(0.77f, 0.77f, 0.77f, 1.0f));
-		material1.SetShiness(76);
+		material1.SetDiffuseColor(CVector4f(1.0f, 0.0f, 0.0f, 1.0f));
+		material1.SetAmbientColor(CVector4f(0.1f, 0.1f, 0.1f, 1.0f));
+		material1.SetSpecularColor(CVector4f(1.0f, 1.0f, 1.0f, 1.0f));
+		material1.SetShiness(64);
 
 		// Шейдер сферы 1
 		auto sphere1Shader = std::make_shared<CSimpleDiffuseShader>();
@@ -63,13 +63,12 @@ CRaytraceView::CRaytraceView()
 
 	// Создаем и добавляем в сцену точечный источник света
 	{
-		auto light = std::make_shared<COmniLightSource>(CVector3d(-4.0, 4.0, 2.0));
+		auto light = std::make_shared<COmniLightSource>(CVector3d(0, 1, 0));
 		light->SetDiffuseIntensity(CVector4f(0.8f, 0.8f, 0.8f, 1));
 		light->SetAmbientIntensity(CVector4f(0.1f, 0.1f, 0.1f, 1.0f));
 		light->SetSpecularIntensity(CVector4f(1.0f, 1.0f, 1.0f, 1.0f));
 		m_scene.AddLightSource(std::move(light));
 	}
-
 	/*
 	Задаем параметры видового порта и матрицы проецирования в контексте визуализации
 	*/
@@ -77,6 +76,7 @@ CRaytraceView::CRaytraceView()
 	CMatrix4d proj;
 	proj.LoadPerspective(60, 800.0 / 600.0, 0.1, 10);
 	m_context.SetProjectionMatrix(proj);
+
 }
 
 CRaytraceView::~CRaytraceView()
