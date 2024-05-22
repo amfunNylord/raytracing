@@ -28,6 +28,9 @@
     <Filter Include="Tetrahedron">
       <UniqueIdentifier>{4a80d4a1-0045-4eae-9da7-39911053c88d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Icosahedron">
+      <UniqueIdentifier>{b61ceda7-150b-4ece-a1e3-bc4bb6dea7f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AboutDlg.h">
@@ -147,6 +150,9 @@
     <ClInclude Include="CCube.h">
       <Filter>Cube</Filter>
     </ClInclude>
+    <ClInclude Include="CIcosahedron.h">
+      <Filter>Icosahedron</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -205,6 +211,9 @@
     </ClCompile>
     <ClCompile Include="CCube.cpp">
       <Filter>Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="CIcosahedron.cpp">
+      <Filter>Icosahedron</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

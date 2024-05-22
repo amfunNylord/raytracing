@@ -15,6 +15,7 @@
 #include "CSphere.h"
 #include "CTetrahedron.h"
 #include "CCube.h"
+#include "CIcosahedron.h"
 
 CRaytraceView::CRaytraceView()
 	: m_pFrameBuffer(std::make_unique<CFrameBuffer>(800, 600))
@@ -44,7 +45,7 @@ CRaytraceView::CRaytraceView()
 		Матрица трансформации сферы 1
 		*/
 		CMatrix4d sphereTransform;
-		sphereTransform.Translate(0, 0, -2);
+		sphereTransform.Translate(0.5, 1, -2);
 		auto sphere1 = std::make_shared<CSphere>(0.5); // Создаем сферу радиуса 0.5
 		sphere1->SetTransform(sphereTransform);
 
@@ -76,6 +77,8 @@ CRaytraceView::CRaytraceView()
 	
 	AddSomeCubes();
 
+	AddSomeIcosahedrons();
+
 	/*
 	Задаем параметры видового порта и матрицы проецирования в контексте визуализации
 	*/
@@ -86,7 +89,7 @@ CRaytraceView::CRaytraceView()
 	// Задаем матрицу камеры
 	CMatrix4d modelView;
 	modelView.LoadLookAtRH(
-		0, 3, 7,
+		0, 2.5, 7,
 		0, 0, 0,
 		0, 1, 0);
 	m_context.SetModelViewMatrix(modelView);
@@ -263,6 +266,19 @@ void CRaytraceView::AddSomeCubes()
 	AddCube(std::make_shared<CSimpleDiffuseShader>(material1), transform);
 }
 
+void CRaytraceView::AddSomeIcosahedrons()
+{
+	CMatrix4d transform;
+	transform.Translate(-1, 0, -5);
+	CSimpleMaterial material1;
+	material1.SetDiffuseColor(CVector4f(0.0f, 0.5f, 0.5f, 1.0f));
+	material1.SetAmbientColor(CVector4f(0.1f, 0.1f, 0.1f, 1.0f));
+	material1.SetSpecularColor(CVector4f(1.0f, 1.0f, 1.0f, 1.0f));
+	material1.SetShiness(64);
+
+	AddIcosahedron(std::make_shared<CSimpleDiffuseShader>(material1), transform);
+}
+
 CSceneObject& CRaytraceView::AddTetrahedron(std::shared_ptr<IShader const> shader, CMatrix4d const& transform)
 {
 	auto tetrahedron = std::make_shared<CTetrahedron>(transform);
@@ -272,10 +288,16 @@ CSceneObject& CRaytraceView::AddTetrahedron(std::shared_ptr<IShader const> shade
 
 CSceneObject& CRaytraceView::AddCube(std::shared_ptr<IShader const> shader, CMatrix4d const& transform)
 {
-	// TODO: insert return statement here
 	auto cube = std::make_shared<CCube>(transform);
 
 	return AddSceneObject(std::move(cube), std::move(shader));
+}
+
+CSceneObject& CRaytraceView::AddIcosahedron(std::shared_ptr<IShader const> shader, CMatrix4d const& transform)
+{
+	auto icosahedron = std::make_shared<CIcosahedron>(transform);
+
+	return AddSceneObject(std::move(icosahedron), std::move(shader));
 }
 
 CSceneObject& CRaytraceView::AddSceneObject(std::shared_ptr<IGeometryObject const> object, std::shared_ptr<IShader const> shader)

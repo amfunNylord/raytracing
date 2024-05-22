@@ -70,7 +70,7 @@ CVector4f CSimpleDiffuseShader::Shade(CShadeContext const & shadeContext)const
 		// вектор отраженного света R
 		CVector3d reflectedLightVector = Normalize(2 * Dot(n, Normalize(lightDirection)) * n - lightDirection);
 
-		CVector3d observerVector = Normalize(CVector3d(0, 3, 7) - shadeContext.GetSurfacePoint()); // вектор от позиции камеры к точке
+		CVector3d observerVector = Normalize(CVector3d(0, 2.5, 7) - shadeContext.GetSurfacePoint()); // вектор от позиции камеры к точке
 		CVector4f specularColor = m_material.GetSpecularColor() * light.GetSpecularIntensity() * pow(Max(0.0, Dot(reflectedLightVector, observerVector)), m_material.GetShiness()); 
 
 		shadedColor += specularColor;
