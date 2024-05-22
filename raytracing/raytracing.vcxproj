@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AboutDlg.h" />
+    <ClInclude Include="CCube.h" />
     <ClInclude Include="CTriangleMesh.h" />
     <ClInclude Include="ILightSource.h" />
     <ClInclude Include="ILightSource_fwd.h" />
@@ -176,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AboutDlg.cpp" />
+    <ClCompile Include="CCube.cpp" />
     <ClCompile Include="CTriangleMesh.cpp" />
     <ClCompile Include="libgl\CCheckerShader.cpp" />
     <ClCompile Include="libgl\CFrameBuffer.cpp" />

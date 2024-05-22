@@ -144,6 +144,9 @@
     <ClInclude Include="CTetrahedron.h">
       <Filter>Tetrahedron</Filter>
     </ClInclude>
+    <ClInclude Include="CCube.h">
+      <Filter>Cube</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -199,6 +202,9 @@
     </ClCompile>
     <ClCompile Include="CTetrahedron.cpp">
       <Filter>Tetrahedron</Filter>
+    </ClCompile>
+    <ClCompile Include="CCube.cpp">
+      <Filter>Cube</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

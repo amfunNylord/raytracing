@@ -13,8 +13,8 @@
 #include "libgl/CSceneObject.h"
 #include "CSimpleDiffuseShader.h"
 #include "CSphere.h"
-#include "CTriangleMesh.h"
 #include "CTetrahedron.h"
+#include "CCube.h"
 
 CRaytraceView::CRaytraceView()
 	: m_pFrameBuffer(std::make_unique<CFrameBuffer>(800, 600))
@@ -72,7 +72,9 @@ CRaytraceView::CRaytraceView()
 		m_scene.AddLightSource(std::move(light));
 	}
 
-	AddSomeTetrahedron();
+	AddSomeTetrahedrons();
+	
+	AddSomeCubes();
 
 	/*
 	Задаем параметры видового порта и матрицы проецирования в контексте визуализации
@@ -233,13 +235,13 @@ LRESULT CRaytraceView::OnTimer(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, 
 }
 
 // Добавляем тетраэдр
-void CRaytraceView::AddSomeTetrahedron()
+void CRaytraceView::AddSomeTetrahedrons()
 {
 	 CMatrix4d transform;
 	 transform.Translate(3, 0.3, -1);
-	 transform.Rotate(150, 0, 1, 0);
+	 transform.Rotate(300, 0, 1, 0);
 	 CSimpleMaterial material1;
-	 material1.SetDiffuseColor(CVector4f(1.0f, 0.0f, 0.0f, 1.0f));
+	 material1.SetDiffuseColor(CVector4f(0.0f, 0.0f, 1.0f, 1.0f));
 	 material1.SetAmbientColor(CVector4f(0.1f, 0.1f, 0.1f, 1.0f));
 	 material1.SetSpecularColor(CVector4f(1.0f, 1.0f, 1.0f, 1.0f));
 	 material1.SetShiness(64);
@@ -247,11 +249,33 @@ void CRaytraceView::AddSomeTetrahedron()
 	 AddTetrahedron(std::make_shared<CSimpleDiffuseShader>(material1), transform);
 }
 
+void CRaytraceView::AddSomeCubes()
+{
+	CMatrix4d transform;
+	transform.Translate(-3, 0.3, -1);
+	transform.Rotate(100, 0, 1, 0);
+	CSimpleMaterial material1;
+	material1.SetDiffuseColor(CVector4f(0.0f, 1.0f, 0.0f, 1.0f));
+	material1.SetAmbientColor(CVector4f(0.1f, 0.1f, 0.1f, 1.0f));
+	material1.SetSpecularColor(CVector4f(1.0f, 1.0f, 1.0f, 1.0f));
+	material1.SetShiness(64);
+
+	AddCube(std::make_shared<CSimpleDiffuseShader>(material1), transform);
+}
+
 CSceneObject& CRaytraceView::AddTetrahedron(std::shared_ptr<IShader const> shader, CMatrix4d const& transform)
 {
 	auto tetrahedron = std::make_shared<CTetrahedron>(transform);
 
 	return AddSceneObject(std::move(tetrahedron), std::move(shader));
+}
+
+CSceneObject& CRaytraceView::AddCube(std::shared_ptr<IShader const> shader, CMatrix4d const& transform)
+{
+	// TODO: insert return statement here
+	auto cube = std::make_shared<CCube>(transform);
+
+	return AddSceneObject(std::move(cube), std::move(shader));
 }
 
 CSceneObject& CRaytraceView::AddSceneObject(std::shared_ptr<IGeometryObject const> object, std::shared_ptr<IShader const> shader)
