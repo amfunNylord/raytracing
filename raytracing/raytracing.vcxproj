@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AboutDlg.h" />
+    <ClInclude Include="CTriangleMesh.h" />
     <ClInclude Include="ILightSource.h" />
     <ClInclude Include="ILightSource_fwd.h" />
     <ClInclude Include="libgl\CCheckerShader.h" />
@@ -171,9 +172,11 @@
     <ClInclude Include="CSimpleMaterial.h" />
     <ClInclude Include="CSphere.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="CTetrahedron.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AboutDlg.cpp" />
+    <ClCompile Include="CTriangleMesh.cpp" />
     <ClCompile Include="libgl\CCheckerShader.cpp" />
     <ClCompile Include="libgl\CFrameBuffer.cpp" />
     <ClCompile Include="libgl\CPlane.cpp" />
@@ -189,6 +192,7 @@
     <ClCompile Include="CSimpleDiffuseShader.cpp" />
     <ClCompile Include="CSphere.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="CTetrahedron.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resources.rc" />

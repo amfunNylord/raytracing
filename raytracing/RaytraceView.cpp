@@ -3,14 +3,18 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#include "RaytraceView.h"
-#include "libgl/CCheckerShader.h"
 #include "libgl/CFrameBuffer.h"
-#include "libgl/CPlane.h"
-#include "libgl/CSceneObject.h"
-#include "CSphere.h"
-#include "CSimpleDiffuseShader.h"
+
+#include "libgl/CCheckerShader.h"
+#include "libgl/CIntersection.h"
 #include "COmniLightSource.h"
+#include "libgl/CPlane.h"
+#include "RaytraceView.h"
+#include "libgl/CSceneObject.h"
+#include "CSimpleDiffuseShader.h"
+#include "CSphere.h"
+#include "CTriangleMesh.h"
+#include "CTetrahedron.h"
 
 CRaytraceView::CRaytraceView()
 	: m_pFrameBuffer(std::make_unique<CFrameBuffer>(800, 600))
@@ -18,23 +22,21 @@ CRaytraceView::CRaytraceView()
 	/*
 	Задаем цвет заднего фона сцены
 	*/
-	m_scene.SetBackdropColor(CVector4f(1, 0, 1, 1));
+	m_scene.SetBackdropColor(CVector4f(0, 0, 1, 1));
 
-	auto plane = std::make_shared<CPlane>(0, 1, 0, 1); // Уравнение плоскости y = -1
-
-	auto checkerShader = std::make_shared<CCheckerShader>();
 	{
-		// Задаем смещение текстурных координат в 1/2 размера шахматного кубика для того чтобы избежать
-		// визуальных артефактов при определении цвета клетки, связанных с погрешностями вычислений
-		CMatrix4d checkerShaderTransform;
-		checkerShaderTransform.Translate(0.25, 0.25, 0.25);
-		checkerShader->SetTextureTransform(checkerShaderTransform);
-	}
+		auto plane = std::make_shared<CPlane>(0, 1, 0, 1);
 
-	/*
-	Создаем объект сцены и добавляем его к сцене
-	*/
-	m_scene.AddObject(std::make_shared<CSceneObject>(std::move(plane), std::move(checkerShader)));
+		CSimpleMaterial material1;
+		material1.SetDiffuseColor(CVector4f(1.0f, 1.0f, 1.0f, 1.0f));
+		material1.SetAmbientColor(CVector4f(0.1f, 0.1f, 0.1f, 1.0f));
+		material1.SetSpecularColor(CVector4f(1.0f, 1.0f, 1.0f, 1.0f));	
+		material1.SetShiness(64);
+
+		auto plane1Shader = std::make_shared<CSimpleDiffuseShader>();
+		plane1Shader->SetMaterial(material1);
+		m_scene.AddObject(std::make_shared<CSceneObject>(std::move(plane), std::move(plane1Shader)));
+	}
 
 	// Создаем и добавляем в сцену сферу, имеющую заданный материал
 	{
@@ -42,7 +44,7 @@ CRaytraceView::CRaytraceView()
 		Матрица трансформации сферы 1
 		*/
 		CMatrix4d sphereTransform;
-		sphereTransform.Translate(0, 0, -3);
+		sphereTransform.Translate(0, 0, -2);
 		auto sphere1 = std::make_shared<CSphere>(0.5); // Создаем сферу радиуса 0.5
 		sphere1->SetTransform(sphereTransform);
 
@@ -69,6 +71,9 @@ CRaytraceView::CRaytraceView()
 		light->SetSpecularIntensity(CVector4f(1.0f, 1.0f, 1.0f, 1.0f));
 		m_scene.AddLightSource(std::move(light));
 	}
+
+	AddSomeTetrahedron();
+
 	/*
 	Задаем параметры видового порта и матрицы проецирования в контексте визуализации
 	*/
@@ -76,7 +81,13 @@ CRaytraceView::CRaytraceView()
 	CMatrix4d proj;
 	proj.LoadPerspective(60, 800.0 / 600.0, 0.1, 10);
 	m_context.SetProjectionMatrix(proj);
-
+	// Задаем матрицу камеры
+	CMatrix4d modelView;
+	modelView.LoadLookAtRH(
+		0, 3, 7,
+		0, 0, 0,
+		0, 1, 0);
+	m_context.SetModelViewMatrix(modelView);
 }
 
 CRaytraceView::~CRaytraceView()
@@ -219,4 +230,33 @@ LRESULT CRaytraceView::OnTimer(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, 
 	}
 
 	return 0;
+}
+
+// Добавляем тетраэдр
+void CRaytraceView::AddSomeTetrahedron()
+{
+	 CMatrix4d transform;
+	 transform.Translate(3, 0.3, -1);
+	 transform.Rotate(150, 0, 1, 0);
+	 CSimpleMaterial material1;
+	 material1.SetDiffuseColor(CVector4f(1.0f, 0.0f, 0.0f, 1.0f));
+	 material1.SetAmbientColor(CVector4f(0.1f, 0.1f, 0.1f, 1.0f));
+	 material1.SetSpecularColor(CVector4f(1.0f, 1.0f, 1.0f, 1.0f));
+	 material1.SetShiness(64);
+
+	 AddTetrahedron(std::make_shared<CSimpleDiffuseShader>(material1), transform);
+}
+
+CSceneObject& CRaytraceView::AddTetrahedron(std::shared_ptr<IShader const> shader, CMatrix4d const& transform)
+{
+	auto tetrahedron = std::make_shared<CTetrahedron>(transform);
+
+	return AddSceneObject(std::move(tetrahedron), std::move(shader));
+}
+
+CSceneObject& CRaytraceView::AddSceneObject(std::shared_ptr<IGeometryObject const> object, std::shared_ptr<IShader const> shader)
+{
+	auto obj = std::make_shared<CSceneObject>(std::move(object), std::move(shader));
+	m_scene.AddObject(obj);
+	return *obj;
 }

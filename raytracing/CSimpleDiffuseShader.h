@@ -9,7 +9,7 @@ class CSimpleDiffuseShader :
 	public IShader
 {
 public:
-	CSimpleDiffuseShader();
+	CSimpleDiffuseShader(CSimpleMaterial const& material = CSimpleMaterial());
 
 	/*
 	В качестве параметра шейдера выступает класс CSimpleMaterial, хранящий в простейшем случае

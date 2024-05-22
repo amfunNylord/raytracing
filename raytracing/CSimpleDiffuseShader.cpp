@@ -5,8 +5,11 @@
 #include "libgl/CShadeContext.h"
 #include "ILightSource.h"
 #include "libgl/VectorMath.h"
+#include "libgl/CIntersection.h"
+#include "libgl/CRay.h"
 
-CSimpleDiffuseShader::CSimpleDiffuseShader(void)
+CSimpleDiffuseShader::CSimpleDiffuseShader(CSimpleMaterial const& material)
+	: m_material(material)
 {
 }
 
@@ -49,11 +52,17 @@ CVector4f CSimpleDiffuseShader::Shade(CShadeContext const & shadeContext)const
 		// Вычисляем скалярное произведение нормали и орт-вектора направления на источник света
 		double nDotL = Max(Dot(n, Normalize(lightDirection)), 0.0);
 		
-		// Вычисляем диффузный цвет точки
-		CVector4f diffuseColor = static_cast<float>(nDotL * lightIntensity) * light.GetDiffuseIntensity() * m_material.GetDiffuseColor();
 
-		// К результирующему цвету прибавляется вычисленный диффузный цвет
-		shadedColor += diffuseColor;
+		// todo: 2 task
+		/*CIntersection bestIntersection;
+		CSceneObject const* pSceneObject = NULL;
+		if (!scene.GetFirstHit(CRay(shadeContext.GetSurfacePoint(), -lightDirection), bestIntersection, &pSceneObject))
+		{*/
+			// Вычисляем диффузный цвет точки
+			CVector4f diffuseColor = static_cast<float>(nDotL * lightIntensity) * light.GetDiffuseIntensity() * m_material.GetDiffuseColor();
+			// К результирующему цвету прибавляется вычисленный диффузный цвет
+			shadedColor += diffuseColor;
+		//}
 
 		CVector4f ambientColor = light.GetAmbientIntensity() * m_material.GetAmbientColor();
 		shadedColor += ambientColor;
@@ -61,7 +70,7 @@ CVector4f CSimpleDiffuseShader::Shade(CShadeContext const & shadeContext)const
 		// вектор отраженного света R
 		CVector3d reflectedLightVector = Normalize(2 * Dot(n, Normalize(lightDirection)) * n - lightDirection);
 
-		CVector3d observerVector = Normalize(CVector3d(0, 0, 0) - shadeContext.GetSurfacePoint()); // вектор от позиции камеры к точке
+		CVector3d observerVector = Normalize(CVector3d(0, 3, 7) - shadeContext.GetSurfacePoint()); // вектор от позиции камеры к точке
 		CVector4f specularColor = m_material.GetSpecularColor() * light.GetSpecularIntensity() * pow(Max(0.0, Dot(reflectedLightVector, observerVector)), m_material.GetShiness()); 
 
 		shadedColor += specularColor;
