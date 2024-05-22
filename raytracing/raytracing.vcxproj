@@ -138,6 +138,7 @@
     <ClInclude Include="AboutDlg.h" />
     <ClInclude Include="CCube.h" />
     <ClInclude Include="CIcosahedron.h" />
+    <ClInclude Include="COctahedron.h" />
     <ClInclude Include="CTriangleMesh.h" />
     <ClInclude Include="ILightSource.h" />
     <ClInclude Include="ILightSource_fwd.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="AboutDlg.cpp" />
     <ClCompile Include="CCube.cpp" />
     <ClCompile Include="CIcosahedron.cpp" />
+    <ClCompile Include="COctahedron.cpp" />
     <ClCompile Include="CTriangleMesh.cpp" />
     <ClCompile Include="libgl\CCheckerShader.cpp" />
     <ClCompile Include="libgl\CFrameBuffer.cpp" />

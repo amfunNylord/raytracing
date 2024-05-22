@@ -16,6 +16,7 @@
 #include "CTetrahedron.h"
 #include "CCube.h"
 #include "CIcosahedron.h"
+#include "COctahedron.h"
 
 CRaytraceView::CRaytraceView()
 	: m_pFrameBuffer(std::make_unique<CFrameBuffer>(800, 600))
@@ -78,6 +79,8 @@ CRaytraceView::CRaytraceView()
 	AddSomeCubes();
 
 	AddSomeIcosahedrons();
+
+	AddSomeOctahedrons();
 
 	/*
 	Задаем параметры видового порта и матрицы проецирования в контексте визуализации
@@ -279,6 +282,20 @@ void CRaytraceView::AddSomeIcosahedrons()
 	AddIcosahedron(std::make_shared<CSimpleDiffuseShader>(material1), transform);
 }
 
+void CRaytraceView::AddSomeOctahedrons()
+{
+	CMatrix4d transform;
+	transform.Translate(4, 0, 0);
+	transform.Rotate(150, 0, 1, 0);
+	CSimpleMaterial material1;
+	material1.SetDiffuseColor(CVector4f(0.3f, 0.2f, 0.9f, 1.0f));
+	material1.SetAmbientColor(CVector4f(0.1f, 0.1f, 0.1f, 1.0f));
+	material1.SetSpecularColor(CVector4f(1.0f, 1.0f, 1.0f, 1.0f));
+	material1.SetShiness(64);
+
+	AddOctahedron(std::make_shared<CSimpleDiffuseShader>(material1), transform);
+}
+
 CSceneObject& CRaytraceView::AddTetrahedron(std::shared_ptr<IShader const> shader, CMatrix4d const& transform)
 {
 	auto tetrahedron = std::make_shared<CTetrahedron>(transform);
@@ -298,6 +315,13 @@ CSceneObject& CRaytraceView::AddIcosahedron(std::shared_ptr<IShader const> shade
 	auto icosahedron = std::make_shared<CIcosahedron>(transform);
 
 	return AddSceneObject(std::move(icosahedron), std::move(shader));
+}
+
+CSceneObject& CRaytraceView::AddOctahedron(std::shared_ptr<IShader const> shader, CMatrix4d const& transform)
+{
+	auto octahedron = std::make_shared<COctahedron>(transform);
+
+	return AddSceneObject(std::move(octahedron), std::move(shader));
 }
 
 CSceneObject& CRaytraceView::AddSceneObject(std::shared_ptr<IGeometryObject const> object, std::shared_ptr<IShader const> shader)

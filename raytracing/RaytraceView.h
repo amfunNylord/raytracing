@@ -46,6 +46,7 @@ private:
 	void AddSomeTetrahedrons();
 	void AddSomeCubes();
 	void AddSomeIcosahedrons();
+	void AddSomeOctahedrons();
 
 	// Отрисовка содержимого буфера кадра на контексте устройства
 	void DrawFrameBuffer(CDC& dc, int x, int y);
@@ -55,6 +56,8 @@ private:
 	CSceneObject& AddTetrahedron(std::shared_ptr<IShader const> shader, CMatrix4d const& transform = CMatrix4d());
 	CSceneObject& AddCube(std::shared_ptr<IShader const> shader, CMatrix4d const& transform = CMatrix4d());
 	CSceneObject& AddIcosahedron(std::shared_ptr<IShader const> shader, CMatrix4d const& transform = CMatrix4d());
+	CSceneObject& AddOctahedron(std::shared_ptr<IShader const> shader, CMatrix4d const& transform = CMatrix4d());
+
 
 private:
 	CRenderContext m_context;
