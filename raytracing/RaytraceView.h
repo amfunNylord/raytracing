@@ -8,6 +8,7 @@
 #include "libgl/CRenderer.h"
 #include "libgl/CScene.h"
 #include "libgl/IGeometryObject_fwd.h"
+#include "CTriangleMesh.h"
 
 class CFrameBuffer;
 class IShader;
@@ -53,7 +54,12 @@ private:
 	bool UpdateFrameBuffer();
 
 	CSceneObject& AddSceneObject(std::shared_ptr<IGeometryObject const> object, std::shared_ptr<IShader const> shader);
-	CSceneObject& AddTetrahedron(std::shared_ptr<IShader const> shader, CMatrix4d const& transform = CMatrix4d());
+	CSceneObject& AddTetrahedron(std::shared_ptr<IShader const> shader, CMatrix4d const& transform = CMatrix4d(), std::vector<Vertex> const& vertices = {
+																													  Vertex({ -1, 0, 1 }),
+																													  Vertex({ +1, 0, 1 }),
+																													  Vertex({ 0, 0, -1 }),
+																													  Vertex({ 0, 2, 0 }),
+																												  });
 	CSceneObject& AddCube(std::shared_ptr<IShader const> shader, CMatrix4d const& transform = CMatrix4d());
 	CSceneObject& AddIcosahedron(std::shared_ptr<IShader const> shader, CMatrix4d const& transform = CMatrix4d());
 	CSceneObject& AddOctahedron(std::shared_ptr<IShader const> shader, CMatrix4d const& transform = CMatrix4d());

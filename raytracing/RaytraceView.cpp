@@ -252,7 +252,14 @@ void CRaytraceView::AddSomeTetrahedrons()
 	 material1.SetSpecularColor(CVector4f(1.0f, 1.0f, 1.0f, 1.0f));
 	 material1.SetShiness(64);
 
-	 AddTetrahedron(std::make_shared<CSimpleDiffuseShader>(material1), transform);
+	 std::vector<Vertex> vertices{
+		 Vertex({ -1, 0, 1 }),
+		 Vertex({ +1, 0, 1 }),
+		 Vertex({ 0, 0, -1 }),
+		 Vertex({ 0, 2, 0 }),
+	 };
+
+	 AddTetrahedron(std::make_shared<CSimpleDiffuseShader>(material1), transform, vertices);
 }
 
 void CRaytraceView::AddSomeCubes()
@@ -296,9 +303,9 @@ void CRaytraceView::AddSomeOctahedrons()
 	AddOctahedron(std::make_shared<CSimpleDiffuseShader>(material1), transform);
 }
 
-CSceneObject& CRaytraceView::AddTetrahedron(std::shared_ptr<IShader const> shader, CMatrix4d const& transform)
+CSceneObject& CRaytraceView::AddTetrahedron(std::shared_ptr<IShader const> shader, CMatrix4d const& transform, std::vector<Vertex> const& vertices)
 {
-	auto tetrahedron = std::make_shared<CTetrahedron>(transform);
+	auto tetrahedron = std::make_shared<CTetrahedron>(transform, vertices);
 
 	return AddSceneObject(std::move(tetrahedron), std::move(shader));
 }

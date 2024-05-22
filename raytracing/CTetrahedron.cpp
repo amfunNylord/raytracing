@@ -1,16 +1,9 @@
 #include "stdafx.h"
 #include "CTetrahedron.h"
 
-CTetrahedron::CTetrahedron(CMatrix4d const& transform)
+CTetrahedron::CTetrahedron(CMatrix4d const& transform, std::vector<Vertex> const& vertices)
 	: m_mesh(nullptr)
 {
-	std::vector<Vertex> vertices{
-		Vertex({ -1, 0, 1 }),
-		Vertex({ +1, 0, 1 }),
-		Vertex({ 0, 0, -1 }),
-		Vertex({ 0, 2, 0 }),
-	};
-
 	std::vector<Face> faces{
 		{ 0, 2, 1 },
 		{ 3, 0, 1 },
