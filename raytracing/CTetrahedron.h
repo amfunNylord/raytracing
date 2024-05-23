@@ -5,6 +5,7 @@
 class CTetrahedron : public CGeometryObjectImpl
 {
 public:
+	// передать только 4 вершины
 	CTetrahedron(CMatrix4d const& transform = CMatrix4d(), std::vector<Vertex> const& vertices = {
 															   Vertex({ -1, 0, 1 }),
 															   Vertex({ +1, 0, 1 }),

@@ -161,9 +161,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MainFrm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -222,6 +219,9 @@
       <Filter>Icosahedron</Filter>
     </ClCompile>
     <ClCompile Include="COctahedron.cpp">
+      <Filter>Octahedron</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Octahedron</Filter>
     </ClCompile>
   </ItemGroup>
